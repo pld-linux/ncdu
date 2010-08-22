@@ -1,0 +1,22 @@
+--- ncdu-1.6/configure.in~	2009-10-23 15:38:07.000000000 +0300
++++ ncdu-1.6/configure.in	2010-08-22 15:10:54.834063961 +0300
+@@ -39,11 +39,19 @@
+                [initscr],
+                [ncurses=ncursesw],
+                [ncurses=ncurses])
++  AC_CHECK_LIB([tinfow],
++               [nodelay],
++               [tinfo=tinfow],
++               [tinfo=tinfo])
+ fi
+ AC_CHECK_LIB([$ncurses],
+              [initscr],
+              [LIBS="$LIBS -l$ncurses"],
+              [AC_MSG_ERROR($ncurses library is required)])
++AC_CHECK_LIB([$tinfo],
++             [nodelay],
++             [LIBS="$LIBS -l$tinfo"],
++             [AC_MSG_ERROR($tinfo library is required)])
+ 
+ 
+ 
