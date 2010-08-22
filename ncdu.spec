@@ -8,6 +8,8 @@ URL:		http://dev.yorhel.nl/ncdu/
 Source0:	http://dev.yorhel.nl/download/%{name}-%{version}.tar.gz
 Patch0:		ncurses-lib.patch
 # Source0-md5:	95d29cf64af2d8cf4b5005e6e3d60384
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	ncurses-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
