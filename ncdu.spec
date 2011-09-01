@@ -1,7 +1,7 @@
 Summary:	Text-based disk usage viewer
 Name:		ncdu
 Version:	1.7
-Release:	1
+Release:	2
 License:	MIT
 Group:		Applications/File
 URL:		http://dev.yorhel.nl/ncdu/
