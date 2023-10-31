@@ -1,12 +1,12 @@
 Summary:	Text-based disk usage viewer
 Name:		ncdu
-Version:	1.18
+Version:	1.19
 Release:	1
 License:	MIT
 Group:		Applications/File
 URL:		http://dev.yorhel.nl/ncdu/
 Source0:	http://dev.yorhel.nl/download/%{name}-%{version}.tar.gz
-# Source0-md5:	4186b5be477cc3a0944619ade81f123b
+# Source0-md5:	7986451d5b222b8a99b5382f33a30831
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ncurses-devel
