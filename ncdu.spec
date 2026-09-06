@@ -1,15 +1,17 @@
 Summary:	Text-based disk usage viewer
 Name:		ncdu
-Version:	1.22
+Version:	1.23.0
 Release:	1
 License:	MIT
 Group:		Applications/File
-URL:		http://dev.yorhel.nl/ncdu/
-Source0:	http://dev.yorhel.nl/download/%{name}-%{version}.tar.gz
-# Source0-md5:	46245039bd07a40d7594a2053139e43f
+# Maintenance fork; the original author died and dev.yorhel.nl is frozen at 1.22.
+URL:		https://github.com/BratishkaErik/ncdu
+Source0:	https://github.com/BratishkaErik/ncdu/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
+# Source0-md5:	382be8498c62158a6f1c3848be3764ff
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ncurses-devel
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -21,7 +23,10 @@ disk space.
 %setup -q
 
 %build
-CPPFLAGS="-I/usr/include/ncurses"
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure
 %{__make}
 
@@ -35,6 +40,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc README.md
 %attr(755,root,root) %{_bindir}/ncdu
 %{_mandir}/man1/ncdu.1*
