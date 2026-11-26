@@ -1,35 +1,29 @@
-%define	gitref	224d40845c9b39bba4efcf3c57bd913fed2f21a4
-%define	snap	20260822
-%define	rev_translate_c	0944784e197e419433a21d4b28bfc65e48e7d514
-%define	rev_aro		8d5f79925cfd60d1c894b478b3502ed1e376e9ba
+%define	rev_aro		630d99ed60fe61ccabe721f1af60881f8b2adde3
 # zig resolves --system packages by directory name, which must be the .hash from
 # the manifest requiring them: ncdu's build.zig.zon for translate_c, translate-c's
-# own for aro. Re-read both after moving either revision above.
-%define	hash_translate_c	translate_c-0.0.0-Q_BUWo5NBwBs3K0a-B1XbxEF3gFdTb75VgOE0FL-2qKL
-%define	hash_aro		aro-0.0.0-JSD1QhdtNwC3tSPo_L0O9EOdOqEXYxE5tOrih2p4RGKx
+# own for aro. Re-read both after moving either version above.
+%define	ver_translate_c	2.0.2
+%define	hash_translate_c	translate_c-2.0.2-Q_BUWvBNBwBgPKQJPblip6M7AHNK_IPNPmyv4rSIQMQc
+%define	hash_aro		aro-0.0.0-JSD1QvCRNwC2O1Jkop9TO6sXb1U1vhrH8FnYK1VdEMKn
 #
 Summary:	Text-based disk usage viewer
 Summary(pl.UTF-8):	Tekstowa przeglądarka wykorzystania miejsca na dysku
 Name:		ncdu
-Version:	2.11.1
-Release:	0.%{snap}.1
+Version:	2.13.0
+Release:	1
 License:	MIT
 Group:		Applications/File
 # Maintenance fork; the original author died and dev.yorhel.nl is frozen at 2.9.2.
-# Packaged off the zig-0.17 branch because the 2.11.1 tag still targets zig 0.16.
 URL:		https://github.com/BratishkaErik/ncdu
-Source0:	https://github.com/BratishkaErik/ncdu/archive/%{gitref}/%{name}-%{snap}.tar.gz
-# Source0-md5:	8f6429edb63dd2d25077be87d1663c45
+Source0:	https://github.com/BratishkaErik/ncdu/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	ff5ffbbbbffc5ecbfbfa9f984d0dac25
 # Zig dependencies; the build has no network, so they are unpacked into a
 # --system package directory in %%prep. aro is a git+ dependency of translate-c,
 # but zig hashes tree content, so a commit archive is equivalent.
-Source1:	https://codeberg.org/ziglang/translate-c/archive/%{rev_translate_c}.tar.gz
-# Source1-md5:	28d0d131b933752d6bf7ce37150503e2
+Source1:	https://codeberg.org/ziglang/translate-c/archive/%{ver_translate_c}.tar.gz
+# Source1-md5:	e0fbf2ed1cee7214929da13886967d32
 Source2:	https://codeberg.org/ziglang/arocc/archive/%{rev_aro}.tar.gz
-# Source2-md5:	1e9440e3aa0d2085cabab614adaa6da4
-# translate-c pinned by the branch predates the zig snapshot PLD ships; aro then
-# fails on std.ArrayList gaining pointer_stability.
-Patch0:		%{name}-translate-c.patch
+# Source2-md5:	b7a92d68ad84331cc36f5a476fc494e5
 BuildRequires:	ncurses-devel
 BuildRequires:	zig
 BuildRequires:	zstd-devel
@@ -48,8 +42,7 @@ znanego polecenia 'du', pozwalająca szybko sprawdzić, które katalogi
 zajmują miejsce na dysku.
 
 %prep
-%setup -q -n %{name}-%{gitref}
-%patch -P0 -p1
+%setup -q
 
 install -d zig-pkg/%{hash_translate_c} zig-pkg/%{hash_aro}
 tar xf %{SOURCE1} -C zig-pkg/%{hash_translate_c} --strip-components=1
